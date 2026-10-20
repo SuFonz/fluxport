@@ -1,0 +1,101 @@
+# ---------------------------------------------------------------------------
+# Build products
+# ---------------------------------------------------------------------------
+*.o
+*.obj
+*.lo
+*.la
+*.lai
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.pdb
+*.ilk
+*.exp
+.deps/
+.libs/
+.dirstamp
+*.Po
+*.Plo
+
+# Binaries produced by `make` in the source tree
+/fluxport-server
+/fluxport-client
+/fp_testtool
+
+# ---------------------------------------------------------------------------
+# Autotools per-checkout state
+#
+# The following generated files are intentionally shipped so users can run
+# `./configure && make` directly, so they must NOT be ignored:
+#   configure, Makefile.in, aclocal.m4, build-aux/
+# Only ignore files that configure/automake create for one checkout.
+# ---------------------------------------------------------------------------
+/Makefile
+/config.log
+/config.status
+/config.cache
+/autom4te.cache/
+/stamp-h1
+/configure~
+/aclocal.m4~
+/Makefile.in~
+/build-aux/*~
+/libtool
+/ltmain.sh
+
+# ---------------------------------------------------------------------------
+# Test output and local test directories
+# ---------------------------------------------------------------------------
+/test-suite.log
+/tests/*.log
+/tests/*.trs
+/tests/.tmp.*
+/tests-tmp/
+/tests/diag/
+
+# ---------------------------------------------------------------------------
+# Distribution tarballs and local build directories
+# ---------------------------------------------------------------------------
+/fluxport-*.tar.gz
+/fluxport-*.tar.bz2
+/fluxport-*.tar.xz
+/fluxport-*.zip
+/fluxport-*/
+/build/
+/bin/
+/.scratch/
+/.cache/
+
+# ---------------------------------------------------------------------------
+# Coverage / profiling
+# ---------------------------------------------------------------------------
+*.gcda
+*.gcno
+*.gcov
+*.profraw
+/coverage/
+
+# ---------------------------------------------------------------------------
+# Editors and tooling
+# ---------------------------------------------------------------------------
+/.vscode/
+/.idea/
+/.clangd/
+/compile_commands.json
+*.swp
+*.swo
+*~
+
+# ---------------------------------------------------------------------------
+# OS metadata and local backups
+# ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+*.bak
+*.tmp
