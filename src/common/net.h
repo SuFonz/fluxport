@@ -20,6 +20,7 @@ typedef int fp_socklen_t;
 #else
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <netinet/in.h>
 typedef int fp_socket_t;
 typedef socklen_t fp_socklen_t;
 #define FP_SOCKET_INVALID (-1)

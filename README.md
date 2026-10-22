@@ -22,9 +22,9 @@ FluxPort 是一个 **UDP over TCP tunnel**：把 UDP 数据报封装进一条 TC
 
 ## 构建
 
-项目使用 **GNU Autotools**，不使用 CMake。仓库中已包含生成好的 `configure`、`Makefile.in`、`aclocal.m4` 和 `build-aux/`，普通用户不需要安装 autoconf/automake，克隆后可以直接运行 `./configure`。
+项目使用 **GNU Autotools**，不使用 CMake。仓库中已包含生成好的 `configure`、`Makefile.in`、`aclocal.m4` 和 `build-aux/`，并且自动重生成规则默认关闭（`AM_MAINTAINER_MODE([disable])`），所以普通用户不需要安装 autoconf/automake，克隆后可以直接运行 `./configure`。
 
-`build-aux/` 不是手工维护的源码，而是生成的 Autotools 辅助脚本；当前 `configure` 会在运行时从该目录加载 `config.guess`、`config.sub`、`install-sh` 等文件，因此直接构建时不要删除它。只有把项目改成“源码仓库模式”时，才应同时删除 `configure`、`Makefile.in`、`aclocal.m4` 和 `build-aux/`，并让用户先运行 `autoreconf -fi`。
+`build-aux/` 不是手工维护的源码，而是生成的 Autotools 辅助脚本；`configure` 会在运行时从该目录加载 `config.guess`、`config.sub`、`install-sh` 等文件，因此直接构建时不要删除它。`configure`、`tests/run_tests.sh` 和 `build-aux/*` 需要保持可执行权限；如果是从不保留权限的途径（例如复制文本或手工解包）取得源码，可执行 `chmod +x configure tests/run_tests.sh build-aux/*` 补齐。只有把项目改成“源码仓库模式”时，才应同时删除 `configure`、`Makefile.in`、`aclocal.m4` 和 `build-aux/`，并让用户先运行 `autoreconf -fi`。
 
 ### Linux / macOS / MSYS2
 
@@ -51,13 +51,19 @@ make
 sudo make install
 ```
 
-只改源码、不重新生成构建系统时不需要 autotools。若修改了 `configure.ac` 或 `Makefile.am`：
+只改 C 源码时不需要 autotools：构建系统文件已经生成好，`make` 不会再尝试调用 aclocal/automake/autoconf。
+
+**如果修改了 `configure.ac`、`Makefile.am` 或 `aclocal.m4`，必须显式重新生成并重新配置**，否则改动不会生效（维护者模式默认关闭，`make` 不会自动感知这些输入的变化）：
 
 ```sh
 autoreconf -fi
 ./configure
 make
 ```
+
+这一步需要本机安装 autoconf/automake。也可以给 `configure` 加 `--enable-maintainer-mode`，让 `make` 在输入变化时自动重生成，但同样要求本机 autotools 版本与仓库中的生成文件匹配。
+
+重新生成后，请把 `configure`、`aclocal.m4`、`Makefile.in` 和对应的 `configure.ac` / `Makefile.am` 一起提交，避免其他人拿到不一致的构建系统。
 
 ### Windows（MSYS2 UCRT64）
 

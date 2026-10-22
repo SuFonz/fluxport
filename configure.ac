@@ -3,6 +3,11 @@ AC_INIT([fluxport], [1.0.0], [fluxport@example.invalid])
 AC_CONFIG_SRCDIR([src/common/protocol.h])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([foreign subdir-objects -Wall])
+# The generated autotools files are shipped in the repository.  Keep the
+# rebuild rules disabled by default so a plain `make` never needs a matching
+# aclocal/automake/autoconf on the user's machine; developers can pass
+# --enable-maintainer-mode (or run autoreconf -fi) when editing these inputs.
+AM_MAINTAINER_MODE([disable])
 AC_CANONICAL_HOST
 AC_PROG_CC
 AC_PROG_INSTALL

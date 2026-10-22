@@ -8,6 +8,8 @@
 
 #ifndef _WIN32
 #include <fcntl.h>
+#include <netinet/tcp.h>
+#include <poll.h>
 #include <signal.h>
 #include <unistd.h>
 #else
